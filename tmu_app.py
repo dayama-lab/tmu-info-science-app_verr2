@@ -112,6 +112,8 @@ if df_credits is not None:
             for idx, (cat, target_val) in enumerate(active_targets.items()):
                 with cols[idx]:
                     st.metric(label=cat, value=f"{target_val} 単位")
+# 注意書きの追加
+    st.caption("※下記122単位に加え共通科目・専門科目のどれかで6単位とること")
 
 st.divider()
 
