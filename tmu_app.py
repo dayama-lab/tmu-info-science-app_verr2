@@ -90,8 +90,21 @@ target_year = st.radio(
     horizontal=True,
 )
 
+# --- 学年切り替え時に時間割選択を自動クリアする処理 ---
+if "current_target_year" not in st.session_state:
+    st.session_state["current_target_year"] = target_year
+
+# 学年が変更された場合、すべての選択状態をリセット
+if st.session_state["current_target_year"] != target_year:
+    st.session_state["current_target_year"] = target_year
+    for key in list(st.session_state.keys()):
+        if key.startswith("select_"):
+            st.session_state[key] = "-- 未選択 --"
+    st.rerun()
+
 # 選択された学年を数値（1, 2, 3, 4）に変換
 selected_grade_num = int(target_year.replace("年", ""))
+
 
 # --- メイン画面：学年別目標単位数の表示 ---
 if df_credits is not None:
